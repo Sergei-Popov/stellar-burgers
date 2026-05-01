@@ -2,11 +2,7 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
-import {
-  clearConstructor,
-  closeOrderModal,
-  placeOrder
-} from '../../services/slices';
+import { closeOrderModal, placeOrder } from '../../services/slices';
 import {
   selectConstructorItems,
   selectConstructorPrice,
@@ -41,7 +37,6 @@ export const BurgerConstructor: FC = () => {
 
   const handleCloseOrderModal = () => {
     dispatch(closeOrderModal());
-    dispatch(clearConstructor());
     navigate('/');
   };
 

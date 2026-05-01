@@ -10,8 +10,6 @@ export const ProfileOrders: FC = () => {
 
   useEffect(() => {
     dispatch(fetchUserOrders());
-    const id = setInterval(() => dispatch(fetchUserOrders()), 15000);
-    return () => clearInterval(id);
   }, [dispatch]);
 
   return <ProfileOrdersUI orders={orders} />;
