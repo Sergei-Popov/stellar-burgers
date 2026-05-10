@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "lib": ["es2018", "dom"],
+    "types": ["cypress", "node"],
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "isolatedModules": false,
+    "jsx": "react-jsx"
+  },
+  "include": ["**/*.ts", "**/*.tsx"]
+}
