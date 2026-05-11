@@ -1,44 +1,37 @@
 import { rootReducer } from './store';
+import { burgerConstructorReducer } from './slices/burger-constructor-slice';
+import { ingredientsReducer } from './slices/ingredients-slice';
+import { newOrderReducer } from './slices/new-order-slice';
+import { feedReducer } from './slices/feed-slice';
+import { userOrdersReducer } from './slices/user-orders-slice';
+import { userReducer } from './slices/user-slice';
 
 describe('rootReducer', () => {
-  it('возвращает корректное начальное состояние при неизвестном экшене', () => {
-    const state = rootReducer(undefined, { type: 'UNKNOWN_ACTION' });
+  it('инициализирует состояние через композицию редьюсеров слайсов', () => {
+    const initAction = { type: '@@INIT' };
+    const state = rootReducer(undefined, initAction);
 
     expect(state).toEqual({
-      ingredients: {
-        ingredients: [],
-        isLoading: false,
-        error: null
-      },
-      burgerConstructor: {
-        bun: null,
-        ingredients: []
-      },
-      newOrder: {
-        orderRequest: false,
-        orderModalData: null,
-        error: null
-      },
-      feed: {
-        orders: [],
-        total: 0,
-        totalToday: 0,
-        currentOrder: null,
-        isLoading: false,
-        error: null
-      },
-      userOrders: {
-        orders: [],
-        isLoading: false,
-        error: null
-      },
-      user: {
-        user: null,
-        isAuthChecked: false,
-        loginError: null,
-        registerError: null,
-        updateError: null
-      }
+      ingredients: ingredientsReducer(undefined, initAction),
+      burgerConstructor: burgerConstructorReducer(undefined, initAction),
+      newOrder: newOrderReducer(undefined, initAction),
+      feed: feedReducer(undefined, initAction),
+      userOrders: userOrdersReducer(undefined, initAction),
+      user: userReducer(undefined, initAction)
+    });
+  });
+
+  it('делегирует неизвестный экшен каждому слайсу без изменения состояния', () => {
+    const unknownAction = { type: 'UNKNOWN_ACTION' };
+    const state = rootReducer(undefined, unknownAction);
+
+    expect(state).toEqual({
+      ingredients: ingredientsReducer(undefined, unknownAction),
+      burgerConstructor: burgerConstructorReducer(undefined, unknownAction),
+      newOrder: newOrderReducer(undefined, unknownAction),
+      feed: feedReducer(undefined, unknownAction),
+      userOrders: userOrdersReducer(undefined, unknownAction),
+      user: userReducer(undefined, unknownAction)
     });
   });
 
